@@ -1,0 +1,34 @@
+name: Tests unitaires
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  unit-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Récupérer le code
+        uses: actions/checkout@v4
+
+      - name: Installer Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Installer les dépendances
+        run: |
+          python -m pip install --upgrade pip
+          pip install unittest-xml-reporting
+
+      - name: Exécuter les tests unitaires
+        run: python -m xmlrunner discover -s . -p "test_student_manager.py" -o test-reports -v
+
+      - name: Publier le rapport XML
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: rapport-tests
+          path: test-reports/

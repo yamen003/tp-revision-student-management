@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Gestion des notes</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 480px; margin: 40px auto; }
+        input, button { padding: 8px; font-size: 1rem; }
+        .error { color: #b00020; margin-top: 16px; }
+        .result { margin-top: 16px; }
+    </style>
+</head>
+<body>
+    <h1>Gestion des notes</h1>
+    <form method="post">
+        <label for="grades">Notes (séparées par des virgules) :</label><br>
+        <input type="text" id="grades" name="grades" placeholder="12,15,18">
+        <button type="submit" id="calculate">Calculer</button>
+    </form>
+
+    {% if error %}
+    <p class="error" id="error">{{ error }}</p>
+    {% endif %}
+
+    {% if result %}
+    <div class="result">
+        <p>Moyenne : <span id="average">{{ result.average }}</span></p>
+        <p>Mention : <span id="mention">{{ result.mention }}</span></p>
+        <p>Statut : <span id="status">{{ result.admitted }}</span></p>
+    </div>
+    {% endif %}
+</body>
+</html>

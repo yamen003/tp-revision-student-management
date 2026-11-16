@@ -1,0 +1,29 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Checkout') {
+            steps {
+                checkout scm
+            }
+        }
+
+        stage('Install Dependencies') {
+            steps {
+                // Linux : sh  |  Windows : remplacez sh par bat
+                sh 'python3 -m pip install --user flask selenium unittest-xml-reporting'
+            }
+        }
+
+        stage('Run Tests') {
+            steps {
+                sh 'python3 -m unittest test_student_manager.py -v'
+            }
+        }
+    }
+
+    post {
+        success { echo 'Build réussi : tous les tests passent.' }
+        failure { echo 'Build échoué : consultez Console Output.' }
+    }
+}
