@@ -18,7 +18,7 @@ def get_mention(average):
     elif average < 18:
         return "Très bien"
     else:
-        return "Très bien"
+        return "Excellent"
 
 
 def is_admitted(average):
